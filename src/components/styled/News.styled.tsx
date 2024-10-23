@@ -1,19 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const NewsArticleWrapper = styled.div`
-  min-height: calc(100vh - 60px);
-  padding-bottom: 15px;
-  background-color: ${(props) => (props.theme === "light" ? "white" : "black")};
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  .newsArticlesContainer {
-    width: 100%;
+    min-height: calc(100vh - 60px);
+    padding-bottom: 15px;
+    background-color: ${props => (props.theme === 'light' ? 'white' : 'black')};
 
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+    align-items: center;
+    flex-direction: column;
+    .newsArticlesContainer {
+        width: 100%;
+    }
 `;

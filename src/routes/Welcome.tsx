@@ -17,8 +17,11 @@ export const Welcome: React.FC = () => {
                 <p className='subIntroText' style={{ marginTop: '10px' }}>
                     See how far can you go!
                 </p>
-                <Link className='actionButton animate__animated animate__fadeInDown animate__slow' to='home'>
-                    <p>Browse Cryptos</p>
+                <Link
+                    to='/cryptos'
+                    className='actionButton animate__animated animate__fadeInDown animate__slow text-decoration-none'
+                >
+                    <p className='mb-0'>Browse Cryptos</p>
                 </Link>
             </IntroCardWrapper>
 
@@ -40,7 +43,7 @@ export const Welcome: React.FC = () => {
                             return (
                                 <li key={ticker}>
                                     <img src={image} alt={name} className='cryptoImage' />
-                                    <p>{ticker}</p>
+                                    <p>{ticker.toUpperCase()}</p>
                                 </li>
                             );
                         })}

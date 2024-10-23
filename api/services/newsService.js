@@ -34,7 +34,7 @@ exports.replaceNewsArticles = async () => {
                 pubDate: data.pubDate ? data.pubDate : new Date(),
                 image_url: data.image_url
                     ? data.image_url
-                    : 'https://res.cloudinary.com/de2ymful4/image/upload/v1657237129/crypto-exchange/assets/stock_crypto_empbv9.png',
+                    : 'https://res.cloudinary.com/de2ymful4/image/upload/v1657237129/assets/stock_crypto_empbv9.png',
                 dateAdded: new Date(),
             });
             await article.save();

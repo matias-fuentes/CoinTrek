@@ -1,9 +1,11 @@
-import { Routes, Route, Navigate, HashRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Home, Login, Welcome, News } from './routes';
-import { OnlyUnauthenticated } from './components';
+import { LoadingUx, OnlyUnauthenticated } from './components';
 import { Navbar } from './components/Navbar';
 import { ThemeContext } from './context';
 import { useFetchNewsArticles, useFetchCryptos, useManageUser } from './hooks';
+import { Crypto } from './routes/Crypto';
+import { Suspense } from 'react';
 
 export const RouteSwitch = () => {
     // Hooks that will manage redux store values based on app changes.
@@ -13,14 +15,14 @@ export const RouteSwitch = () => {
 
     return (
         <ThemeContext>
-            <HashRouter>
+            <BrowserRouter>
                 <Navbar />
                 <Routes>
-                    <Route path='/crypto-exchange/' element={<Welcome />} />
-                    <Route path='/crypto-exchange/home' element={<Home />} />
-                    <Route path='/crypto-exchange/news' element={<News />} />
+                    <Route path='/' element={<Welcome />} />
+                    <Route path='/cryptos' element={<Home />} />
+                    <Route path='/news' element={<News />} />
                     <Route
-                        path='/crypto-exchange/login'
+                        path='/login'
                         element={
                             // Prevent users that are logged in to access this route.
                             <OnlyUnauthenticated>
@@ -29,9 +31,16 @@ export const RouteSwitch = () => {
                         }
                     />
                     {/* Redirect all users navigating to invalid pages, back into our welcome page. */}
-                    <Route path='*' element={<Navigate to='/crypto-exchange/' />} />
+                    <Route
+                        path='/cryptos/:cryptoID'
+                        element={
+                            <Suspense fallback={<LoadingUx />}>
+                                <Crypto />
+                            </Suspense>
+                        }
+                    />
                 </Routes>
-            </HashRouter>
+            </BrowserRouter>
         </ThemeContext>
     );
 };

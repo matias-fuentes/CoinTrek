@@ -12,7 +12,7 @@ export const News = () => {
         <NewsArticleWrapper theme={theme.palette.mode}>
             <NewsSectionTitle count={newsArticles.length} theme={theme} />
 
-            <div className='newsArticlesContainer'>
+            <div className='newsArticlesContainer p-5 pt-2 grid gap-4 grid-cols-4'>
                 {newsArticles.map((article, i) => {
                     return <NewsArticleCard key={i} article={article} />;
                 })}

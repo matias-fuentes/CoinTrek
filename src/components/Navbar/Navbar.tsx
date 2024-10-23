@@ -1,3 +1,4 @@
+import './Navbar.css';
 import { useState, useEffect } from 'react';
 import {
     AppBar,
@@ -39,7 +40,7 @@ export const Navbar = () => {
     const [curLocation, setCurLocation] = useState<string>('');
 
     useEffect(() => {
-        setCurLocation(pathname.replace('/crypto-exchange/', ''));
+        setCurLocation(pathname.replace('/', ''));
     }, [pathname]);
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -69,20 +70,24 @@ export const Navbar = () => {
                 sx={{
                     maxHeight: '60px !important',
                     overflow: 'hidden',
-                    backgroundColor: 'rgb(0,0,0)',
-                    borderBottom: theme.palette.mode === 'dark' ? 'solid white 1px' : '',
+                    padding: '0rem 4rem',
+                    background: 'rgb(0,0,0)',
+                    borderBottom: theme.palette.mode === 'dark' ? 'solid gray 1px' : '',
                 }}
             >
-                <Container maxWidth='xl' className='navbarContainer'>
+                <Container maxWidth='xl' className='navbarContainer px-5'>
                     <Toolbar disableGutters>
                         {/* Website logo that links to welcome page. */}
-                        <Link to='crypto-exchange/' className='logoContainer'>
+                        <Link to='/' className='logoContainer text-decoration-none'>
                             <img src={logo} alt='logo' className='logoImg' />
                             <Typography className='title'>CoinTrek</Typography>
                         </Link>
 
-                        <Box sx={{ flexGrow: 0, marginLeft: 'auto' }}>
+                        <Box sx={{ flexGrow: 0, marginLeft: 'auto' }} className='d-flex gap-2'>
                             {/* Profile Icon that triggers menu to open and populate options */}
+                            <IconButton sx={{ ml: 1 }} color='inherit' onClick={toggleTheme}>
+                                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                            </IconButton>
                             <Tooltip title='Open settings'>
                                 <IconButton onClick={handleOpenUserMenu}>
                                     <Avatar
@@ -121,7 +126,7 @@ export const Navbar = () => {
                                 )}
 
                                 {curLocation === 'home' ? null : (
-                                    <Link to='/crypto-exchange/home'>
+                                    <Link to='/cryptos'>
                                         <MenuItem onClick={handleCloseUserMenu} sx={justifyCenter}>
                                             Browse Cryptos
                                         </MenuItem>
@@ -129,7 +134,7 @@ export const Navbar = () => {
                                 )}
 
                                 {curLocation === 'news' ? null : (
-                                    <Link to='/crypto-exchange/news'>
+                                    <Link to='/news'>
                                         <MenuItem onClick={handleCloseUserMenu} sx={justifyCenter}>
                                             News
                                         </MenuItem>
@@ -137,7 +142,7 @@ export const Navbar = () => {
                                 )}
 
                                 {curLocation === '' ? null : (
-                                    <Link to='/crypto-exchange/'>
+                                    <Link to='/'>
                                         <MenuItem onClick={handleCloseUserMenu} sx={justifyCenter}>
                                             About
                                         </MenuItem>
@@ -150,19 +155,12 @@ export const Navbar = () => {
                                         <Typography textAlign='center'>Log Out</Typography>
                                     </MenuItem>
                                 ) : (
-                                    <Link to='/crypto-exchange/login'>
+                                    <Link to='/login'>
                                         <MenuItem onClick={handleCloseUserMenu} sx={justifyCenter}>
                                             Log In
                                         </MenuItem>
                                     </Link>
                                 )}
-
-                                {/* Theme Toggle */}
-                                <MenuItem onClick={toggleTheme} sx={justifyCenter}>
-                                    <IconButton sx={{ ml: 1 }} color='inherit'>
-                                        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                                    </IconButton>
-                                </MenuItem>
                             </Menu>
                         </Box>
                     </Toolbar>

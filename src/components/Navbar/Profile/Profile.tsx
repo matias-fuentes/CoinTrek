@@ -120,7 +120,7 @@ export const Profile = () => {
     return (
         <div className='profileButton' style={{ width: '100%' }}>
             {/* Navbar option button, that will trigger profile section to popup. */}
-            <Typography onClick={toggleDrawer('right', true)} sx={{ padding: '6px 16px', textAlign: 'center' }}>
+            <Typography onClick={toggleDrawer('right', true)} sx={{ textAlign: 'center' }}>
                 Profile
             </Typography>
 

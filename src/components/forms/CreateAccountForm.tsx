@@ -5,12 +5,14 @@ import { createAccount } from '../../api/api';
 import { useGlobalContext } from '../../context/GlobalCryptoContext';
 import { ResponseType } from '../../context';
 import { SubmissionError } from '../../global.models';
+import { AxiosError } from 'axios';
 
 interface Props {
+    onSuccess: () => void;
     setShowCreateAccount: Dispatch<SetStateAction<Boolean>>;
 }
 
-export const CreateAccountForm: FC<Props> = ({ setShowCreateAccount }) => {
+export const CreateAccountForm: FC<Props> = ({ setShowCreateAccount, onSuccess }) => {
     const { togglePageLoading, handleBannerMessage } = useGlobalContext();
     const [account, setAccount] = useState<Account>({
         username: '',
@@ -51,10 +53,17 @@ export const CreateAccountForm: FC<Props> = ({ setShowCreateAccount }) => {
                 if (error.message.includes('404')) {
                     handleBannerMessage(ResponseType.Error, 'Error communicating with server!');
                 } else {
-                    setTakenUsername({
-                        helperText: 'Username taken already',
-                        error: true,
-                    });
+                    if (
+                        error instanceof AxiosError &&
+                        error.response?.data.message === 'Error retrieving authentication token'
+                    ) {
+                        onSuccess();
+                    } else {
+                        setTakenUsername({
+                            helperText: 'Username taken already',
+                            error: true,
+                        });
+                    }
                 }
             }
             togglePageLoading();

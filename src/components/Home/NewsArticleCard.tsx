@@ -1,4 +1,5 @@
 import React from 'react';
+import './NewsArticleCard.css';
 import { Card, CardActions, CardContent, Button, Typography } from '@mui/material';
 import { NewsArticle } from '../../global.models';
 
@@ -9,23 +10,18 @@ interface Props {
 export const NewsArticleCard: React.FC<Props> = ({ article }) => {
     const { title, description, link, pubDate } = article;
     return (
-        <Card
-            sx={{
-                width: '300px',
-                maxHeight: '200px',
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'unset',
-                boxShadow: 'none',
-                border: '1px solid #e0e0e0',
-            }}
-            className='animate__animated animate__zoomIn'
-        >
-            <CardContent sx={{ overflow: 'scroll', padding: '8px' }}>
-                <Typography gutterBottom variant='body1' component='div'>
+        <Card className='animate__animated animate__zoomIn col-span-1 p-3 d-flex flex-column articleCard'>
+            <CardContent sx={{ overflow: 'scroll', padding: '8px' }} className='overflow-hidden flex-grow-1'>
+                <Typography
+                    gutterBottom
+                    variant='body1'
+                    component='div'
+                    className='articleTitle'
+                    onClick={() => window.open(`${link}`, '_blank')}
+                >
                     {title}
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant='body2' className='text-secondary'>
                     {description}
                 </Typography>
             </CardContent>
@@ -34,7 +30,7 @@ export const NewsArticleCard: React.FC<Props> = ({ article }) => {
                 <Button size='small' onClick={() => window.open(`${link}`, '_blank')}>
                     Read full article
                 </Button>
-                <Typography color='text.secondary' sx={{ fontSize: '12px', marginLeft: 'auto' }}>
+                <Typography className='text-secondary' sx={{ fontSize: '12px', marginLeft: 'auto' }}>
                     {new Date(pubDate).toDateString()}
                 </Typography>
             </CardActions>
